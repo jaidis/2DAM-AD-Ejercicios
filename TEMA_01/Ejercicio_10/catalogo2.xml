@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CATALOG>
+    <CD artist="Bob Dylan" title="Empire Burlesque" company="Columbia" year="1985">
+        <TITLE>Empire Burlesque</TITLE>
+        <ARTIST>Bob Dylan</ARTIST>
+        <COUNTRY>USA</COUNTRY>
+        <COMPANY>Columbia</COMPANY>
+        <PRICE>10.90</PRICE>
+        <YEAR>1985</YEAR>
+    </CD>
+    <CD>
+        <TITLE>Hide your heart</TITLE>
+        <ARTIST>Bonnie Tyler</ARTIST>
+        <COUNTRY>UK</COUNTRY>
+        <COMPANY>CBS Records</COMPANY>
+        <PRICE>9.90</PRICE>
+        <YEAR>1988</YEAR>
+    </CD>
+    <CD>
+        <TITLE>Still got the blues</TITLE>
+        <ARTIST>Gary Moore</ARTIST>
+        <COUNTRY>UK</COUNTRY>
+        <COMPANY>Virgin records</COMPANY>
+        <PRICE>10.20</PRICE>
+        <YEAR>1990</YEAR>
+    </CD>
+    <CD>
+        <TITLE>One night only</TITLE>
+        <ARTIST>Bee Gees</ARTIST>
+        <COUNTRY>UK</COUNTRY>
+        <COMPANY>Polydor</COMPANY>
+        <PRICE>10.90</PRICE>
+        <YEAR>1998</YEAR>
+    </CD>
+    <CD>
+        <TITLE>Stop</TITLE>
+        <ARTIST>Sam Brown</ARTIST>
+        <COUNTRY>UK</COUNTRY>
+        <COMPANY>A and M</COMPANY>
+        <PRICE>8.90</PRICE>
+        <YEAR>1988</YEAR>
+    </CD>
+</CATALOG>

@@ -6,6 +6,8 @@
 package ejercicio_01;
 
 import java.sql.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -57,19 +59,23 @@ public class Vista extends javax.swing.JFrame {
             try {
                 id = Integer.parseInt(jtf_id.getText());
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "ID cliente", JOptionPane.WARNING_MESSAGE);
-                id = 1;
+                //JOptionPane.showMessageDialog(this, e.getMessage(), "ID cliente", JOptionPane.WARNING_MESSAGE);
+                id = 0;
             }
+
             String dni = jtf_dni.getText();
             String nombre = jtf_nombre.getText();
             String fecha = jtf_fecha.getText();
 
-            NumRegistros = sentencia.executeUpdate("INSERT INTO clientes VALUES (" + id + ",'" + dni + "','" + nombre + "','" + fecha + "')");
+            if (validarDni(dni) && validarFecha(fecha) && id > 0) {
+                NumRegistros = sentencia.executeUpdate("INSERT INTO clientes VALUES (" + id + ",'" + dni + "','" + nombre + "','" + fecha + "')");
+                JOptionPane.showMessageDialog(this, "Registros insertados: " + NumRegistros, "Insertar Cliente", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Los campos no cumplen los requisitos para ser insertados", "Insertar Cliente", JOptionPane.WARNING_MESSAGE);
+            }
 
             resultado.close();
             sentencia.close();
-
-            JOptionPane.showMessageDialog(this, NumRegistros, "Insertar Cliente", JOptionPane.WARNING_MESSAGE);
 
             dibujarTabla();
 
@@ -89,22 +95,24 @@ public class Vista extends javax.swing.JFrame {
             try {
                 id = Integer.parseInt(jtf_id.getText());
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "ID cliente", JOptionPane.WARNING_MESSAGE);
-                id = 1;
+                //JOptionPane.showMessageDialog(this, e.getMessage(), "ID cliente", JOptionPane.WARNING_MESSAGE);
+                id = 0;
             }
             String dni = jtf_dni.getText();
             String nombre = jtf_nombre.getText();
             String fecha = jtf_fecha.getText();
 
-            NumRegistros = sentencia.executeUpdate("UPDATE clientes SET dni = '" + dni + "', nombre = '" + nombre + "', fecnac = '" + fecha + "' WHERE codigo = " + id);
+            if (validarDni(dni) && validarFecha(fecha) && id > 0) {
+                NumRegistros = sentencia.executeUpdate("UPDATE clientes SET dni = '" + dni + "', nombre = '" + nombre + "', fecnac = '" + fecha + "' WHERE codigo = " + id);
+                JOptionPane.showMessageDialog(this, "Registros modificados: " + NumRegistros, "Modificar Cliente", JOptionPane.WARNING_MESSAGE);
+                dibujarTabla();
+                limpiarCampos();
+            } else {
+                JOptionPane.showMessageDialog(this, "Los campos no cumplen los requisitos para ser modificados" + NumRegistros, "Modificar Cliente", JOptionPane.WARNING_MESSAGE);
+            }
 
             resultado.close();
             sentencia.close();
-
-            JOptionPane.showMessageDialog(this, NumRegistros, "Modificar Cliente", JOptionPane.WARNING_MESSAGE);
-
-            dibujarTabla();
-            limpiarCampos();
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, e.getMessage() + " - " + e.getErrorCode() + " - " + e.getSQLState(), "Modificar Cliente", JOptionPane.WARNING_MESSAGE);
@@ -120,16 +128,19 @@ public class Vista extends javax.swing.JFrame {
             try {
                 id = Integer.parseInt(jtf_id.getText());
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "ID cliente", JOptionPane.WARNING_MESSAGE);
-                id = 1;
+                //JOptionPane.showMessageDialog(this, e.getMessage(), "ID cliente", JOptionPane.WARNING_MESSAGE);
+                id = 0;
             }
 
-            NumRegistros = sentencia.executeUpdate("DELETE FROM clientes WHERE codigo =" + id);
+            if (id > 0) {
+                NumRegistros = sentencia.executeUpdate("DELETE FROM clientes WHERE codigo =" + id);
+                JOptionPane.showMessageDialog(this, "Registros borrados: " + NumRegistros, "Borrar Cliente", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Los campos no cumplen los requisitos para ser borrados", "Borrar Cliente", JOptionPane.WARNING_MESSAGE);
+            }
 
             resultado.close();
             sentencia.close();
-
-            JOptionPane.showMessageDialog(this, NumRegistros, "Borrar Cliente", JOptionPane.WARNING_MESSAGE);
 
             dibujarTabla();
             limpiarCampos();
@@ -149,7 +160,6 @@ public class Vista extends javax.swing.JFrame {
             tabla.setRowCount(0);
 
             while (resultado.next()) {
-                //System.out.println(resultado.getInt(1) + " " + resultado.getString(2) + " " + resultado.getString(3));
 
                 fila[0] = resultado.getInt(1) + "";
                 fila[1] = resultado.getString(2);
@@ -166,8 +176,6 @@ public class Vista extends javax.swing.JFrame {
 
             jt_clientes.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
                 if (!event.getValueIsAdjusting() && jt_clientes.getSelectedRow() != -1) {
-                    //String x = tabla.getValueAt(jt_clientes.getSelectedRow(), 0) + " - " + jt_clientes.getValueAt(jt_clientes.getSelectedRow(), 1) + " - " + jt_clientes.getValueAt(jt_clientes.getSelectedRow(), 2) + " - " + jt_clientes.getValueAt(jt_clientes.getSelectedRow(), 3);
-                    //System.out.println(x);
                     jtf_id.setText(tabla.getValueAt(jt_clientes.getSelectedRow(), 0).toString());
                     jtf_dni.setText(tabla.getValueAt(jt_clientes.getSelectedRow(), 1).toString());
                     jtf_nombre.setText(tabla.getValueAt(jt_clientes.getSelectedRow(), 2).toString());
@@ -185,6 +193,18 @@ public class Vista extends javax.swing.JFrame {
         jtf_dni.setText("");
         jtf_nombre.setText("");
         jtf_fecha.setText("");
+    }
+
+    private boolean validarDni(String dni) {
+        Pattern p = Pattern.compile("(([X-Z]{1})([-]?)(\\d{7})([-]?)([A-Z]{1}))|((\\d{8})([-]?)([A-Z]{1}))");
+        Matcher m = p.matcher(dni);
+        return m.find();
+    }
+
+    private boolean validarFecha(String fecha) {
+        Pattern p = Pattern.compile("\\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|[3][01])");
+        Matcher m = p.matcher(fecha);
+        return m.find();
     }
 
     /**

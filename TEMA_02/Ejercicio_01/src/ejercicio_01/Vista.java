@@ -8,6 +8,7 @@ package ejercicio_01;
 import java.sql.*;
 
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -160,7 +161,19 @@ public class Vista extends javax.swing.JFrame {
 
             resultado.close();
             sentencia.close();
-            //conexion.close();
+
+            jt_clientes.setAutoCreateRowSorter(true);
+
+            jt_clientes.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+                if (!event.getValueIsAdjusting() && jt_clientes.getSelectedRow() != -1) {
+                    //String x = tabla.getValueAt(jt_clientes.getSelectedRow(), 0) + " - " + jt_clientes.getValueAt(jt_clientes.getSelectedRow(), 1) + " - " + jt_clientes.getValueAt(jt_clientes.getSelectedRow(), 2) + " - " + jt_clientes.getValueAt(jt_clientes.getSelectedRow(), 3);
+                    //System.out.println(x);
+                    jtf_id.setText(tabla.getValueAt(jt_clientes.getSelectedRow(), 0).toString());
+                    jtf_dni.setText(tabla.getValueAt(jt_clientes.getSelectedRow(), 1).toString());
+                    jtf_nombre.setText(tabla.getValueAt(jt_clientes.getSelectedRow(), 2).toString());
+                    jtf_fecha.setText(tabla.getValueAt(jt_clientes.getSelectedRow(), 3).toString());
+                }
+            });
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Cargando tabla", JOptionPane.WARNING_MESSAGE);
@@ -200,6 +213,11 @@ public class Vista extends javax.swing.JFrame {
         jb_modificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -332,7 +350,7 @@ public class Vista extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jb_refrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -350,7 +368,7 @@ public class Vista extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jb_borrar)
                             .addComponent(jb_refrescar))
-                        .addGap(0, 8, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -373,6 +391,15 @@ public class Vista extends javax.swing.JFrame {
     private void jb_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_modificarActionPerformed
         modificarCliente();
     }//GEN-LAST:event_jb_modificarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        try {
+            conexion.close();
+            JOptionPane.showMessageDialog(this, "See you space cowboy", "Cerrando programa", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Cerrando programa", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

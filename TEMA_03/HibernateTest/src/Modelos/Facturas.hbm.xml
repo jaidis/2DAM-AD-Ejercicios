@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-nov-2018 21:07:00 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.Facturas" table="FACTURAS" schema="FACTURAS" optimistic-lock="version">
+        <id name="nfactura" type="long">
+            <column name="NFACTURA" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="clientes" class="Modelos.Clientes" fetch="select">
+            <column name="CODCLIENTE" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="fecfactura" type="date">
+            <column name="FECFACTURA" length="7" not-null="true" />
+        </property>
+        <property name="total" type="big_decimal">
+            <column name="TOTAL" precision="12" not-null="true" />
+        </property>
+        <property name="pagada" type="string">
+            <column name="PAGADA" length="1" not-null="true" />
+        </property>
+        <set name="linfacturases" table="LINFACTURAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="NFACTURA" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="Modelos.Linfacturas" />
+        </set>
+    </class>
+</hibernate-mapping>

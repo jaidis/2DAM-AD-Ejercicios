@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-nov-2018 21:07:00 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.Linfacturas" table="LINFACTURAS" schema="FACTURAS" optimistic-lock="version">
+        <id name="id" type="long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="facturas" class="Modelos.Facturas" fetch="select">
+            <column name="NFACTURA" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="referencia" type="string">
+            <column name="REFERENCIA" length="13" not-null="true" />
+        </property>
+        <property name="cantidad" type="big_decimal">
+            <column name="CANTIDAD" precision="10" not-null="true" />
+        </property>
+        <property name="descuento" type="big_decimal">
+            <column name="DESCUENTO" precision="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

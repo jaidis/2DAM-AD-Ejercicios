@@ -1,0 +1,9 @@
+Crear un asistente de conexion
+Crear un ingeneria inversa de la base de datos
+Crear un nuevo paquete con el nombre Controladores
+Dentro de controladores crear un fichero con la HibernateUtils
+Crear un nuevo paquete modelos
+Crear un "Hibernate Mapping Files and POJOs"
+Crear un nuevo paquete vistas
+Boton derecho en hibernate ejecutar consulta SQL
+	from Clientes

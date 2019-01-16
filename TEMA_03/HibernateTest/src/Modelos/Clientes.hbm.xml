@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-nov-2018 21:07:00 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.Clientes" table="CLIENTES" schema="FACTURAS" optimistic-lock="version">
+        <id name="codigo" type="long">
+            <column name="CODIGO" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="dni" type="string">
+            <column name="DNI" length="10" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="50" not-null="true" />
+        </property>
+        <property name="fecnac" type="date">
+            <column name="FECNAC" length="7" not-null="true" />
+        </property>
+        <set name="facturases" table="FACTURAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CODCLIENTE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="Modelos.Facturas" />
+        </set>
+    </class>
+</hibernate-mapping>

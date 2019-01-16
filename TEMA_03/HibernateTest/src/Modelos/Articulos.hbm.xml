@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 13-nov-2018 21:07:00 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Modelos.Articulos" table="ARTICULOS" schema="FACTURAS" optimistic-lock="version">
+        <id name="referencia" type="string">
+            <column name="REFERENCIA" length="13" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="50" not-null="true" />
+        </property>
+        <property name="stock" type="big_decimal">
+            <column name="STOCK" precision="10" not-null="true" />
+        </property>
+        <property name="precio" type="big_decimal">
+            <column name="PRECIO" precision="10" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

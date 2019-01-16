@@ -1,0 +1,12 @@
+tabla arbitros: codigo y nombre del arbitro
+tabal equipos: codigo y nombre del equipo, ciudad y pabellon donde juega
+tabla partidos: equipo local, equipo visitante, puntos local, puntos visitante
+
+fGanador1 -> 'Ha ganado el equipo local'
+	-> 'Ha ganado el equipo visitante'
+
+fGanador2 -> Nombre del equipo ganador
+fDiferencia()
+
+SELECT DEREF(EL) INTO X FROM DUAL;
+X.NombEqu

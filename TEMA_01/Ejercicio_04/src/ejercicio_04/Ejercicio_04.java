@@ -19,7 +19,7 @@ public class Ejercicio_04 {
      */
     public static void main(String[] args) throws IOException, FileNotFoundException {
 
-        //String url = "/home/jaidis/NetBeansProjects/Ejercicio_02/src/ejercicio_02/Ejercicio_02.java";
+        //String url = "/home/jaidis/NetBeansProjects/0 - Ejercicios/TEMA_01/Ejercicio_02/src/ejercicio_02/Ejercicio_02.java";
         try {
 
             String url = "";
@@ -33,10 +33,10 @@ public class Ejercicio_04 {
                     String extension = comprobarExtension(fichero);
 
                     if (extension.equals("java")) {
-                        
+
                         String nombre = comprobarNombre(fichero);
 
-                        FileWriter destino = new FileWriter(nombre+".cod");
+                        FileWriter destino = new FileWriter(nombre + ".cod");
                         int caracter = 0;
 
                         while ((caracter = lector.read()) != -1) {
@@ -46,17 +46,15 @@ public class Ejercicio_04 {
                                 destino.write((char) caracter);
                             }
                         }
-                        
+
                         destino.close();
                         lector.close();
-                    }
-                    else{
-                         //throw new IOException("La extensión no es válida");
-                         JOptionPane.showMessageDialog(null, "La extensión no es válida");
+                    } else {
+                        //throw new IOException("La extensión no es válida");
+                        JOptionPane.showMessageDialog(null, "La extensión no es válida");
                     }
                 }
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Parámetros no admitidos");
             }
 
@@ -81,13 +79,13 @@ public class Ejercicio_04 {
         return extension;
 
     }
-    
-        public static String comprobarNombre(File fichero) {
+
+    public static String comprobarNombre(File fichero) {
 
         String nombreLimpio = "";
         String nombre = fichero.getName();
         int i = nombre.lastIndexOf('.');
-        
+
         if (i > 0) {
             nombreLimpio = nombre.substring(0, i);
         }
@@ -106,4 +104,4 @@ utiliza los JDialog (JOPtionPane).
 JOptionPane.showMessageDialog(null, "Parámetros no admitidos", "Titulo", JOptionPane.WARNING_MESSAGE);
 JOptionPane.showConfirmDialog(null, "¿Estás seguro?"); return a integer
 
-*/
+ */

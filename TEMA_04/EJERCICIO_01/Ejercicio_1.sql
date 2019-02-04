@@ -48,9 +48,9 @@ CREATE OR REPLACE TYPE BODY T_ALUMNOS AS
         UPDATE ALUMNOS SET fechnac =  TO_DATE(fecha, 'yyyy/mm/dd') WHERE nMatricula = matricula;
     END;
     MEMBER FUNCTION Num_Asignaturas RETURN VARCHAR2 IS
-        total V_NOTAS;
+        --total V_NOTAS;
     BEGIN
-        SELECT notas INTO total FROM ALUMNOS WHERE nMatricula = SELF.nMatricula;
+        --SELECT notas INTO total FROM ALUMNOS WHERE nMatricula = SELF.nMatricula;
         RETURN 'Total asignaturas: ' || notas.COUNT;
     END;
     
